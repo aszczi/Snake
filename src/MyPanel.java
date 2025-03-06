@@ -28,7 +28,6 @@ public class MyPanel extends JPanel implements ActionListener {
    Timer timer;
    Random random;
 
-
     MyPanel() {
         random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -38,6 +37,7 @@ public class MyPanel extends JPanel implements ActionListener {
         this.addKeyListener(new MyKeyAdapter());
         startGame();
     }
+   
     public void startGame(){
         newFood();
         running = true;
@@ -49,6 +49,7 @@ public class MyPanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         draw(g);
     }
+   
     public void draw(Graphics g){
         if(running) {
             //apple
@@ -59,43 +60,16 @@ public class MyPanel extends JPanel implements ActionListener {
             g.fillOval(foodX + 5, foodY, UNIT_SIZE - 7, UNIT_SIZE - 7);
 
             //snake
-       /*     Image snakeHeadImage = new ImageIcon("glowa_dol.png").getImage();
-
-            for (int i = 0; i < bodyParts; i++) {
-                if (i == 0) {
-                    //head
-                    BufferedImage newImage = new BufferedImage(UNIT_SIZE, UNIT_SIZE, BufferedImage.TYPE_INT_RGB);
-                    Graphics2D g2d = newImage.createGraphics();
-
-// Ustawiamy jednolite tło (np. białe)
-                    g2d.setColor(Color.decode("#32CD32"));
-                    g2d.fillRect(0, 0, UNIT_SIZE, UNIT_SIZE);
-
-// Rysujemy obraz na tym tle
-                    g2d.drawImage(snakeHeadImage, 0, 0, UNIT_SIZE, UNIT_SIZE, null);
-                    g2d.dispose();
-
-                    g.drawImage(newImage, x[0], y[0], this);
-
-                    //pierwotne below
-                  //  g.setColor(Color.darkGray);
-                  //  g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-                } else {
-                    //body
-                    g.setColor(Color.decode("#B6ECB4"));
-                    g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-                }
-            }*/
             try {
                 BufferedImage snakeHeadImageRight = ImageIO.read(new File("glowa_prawo.png"));
                 BufferedImage snakeHeadImageLeft = ImageIO.read(new File("glowa_lewo.png"));
                 BufferedImage snakeHeadImageUp = ImageIO.read(new File("glowa_gora.png"));
                 BufferedImage snakeHeadImageDown = ImageIO.read(new File("glowa_dol.png"));
-            //    BufferedImage snakeBodyImage = ImageIO.read(new File("cialov2.png"));
+          
 
                 for (int i = 0; i < bodyParts; i++) {
                     if (i == 0) {
-                        // Rysowanie głowy
+                        // snake head
                         switch (direction) {
                             case EAST:
                                 g.drawImage(snakeHeadImageRight, x[0]-5, y[0]-3, UNIT_SIZE+5, UNIT_SIZE+5, this);
@@ -111,10 +85,9 @@ public class MyPanel extends JPanel implements ActionListener {
                                 break;
                         }
                     } else {
-                        // Rysowanie ciała
+                        // snake body
                        g.setColor(Color.decode(BODY_COLOR));
                        g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-                     //   g.drawImage(snakeBodyImage, x[i], y[i], UNIT_SIZE, UNIT_SIZE, this);
 
                     }
                 }
@@ -146,6 +119,7 @@ public class MyPanel extends JPanel implements ActionListener {
         }
 
     }
+   
     public void newFood(){
         foodX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE))*UNIT_SIZE;
         foodY = random.nextInt((int)(SCREEN_HEIGHT/UNIT_SIZE))*UNIT_SIZE;
@@ -158,6 +132,7 @@ public class MyPanel extends JPanel implements ActionListener {
             newFood();
         }
     }
+   
     public void checkCollision(){
         //checking collisions with body
          for (int i = bodyParts; i>0; i--){
@@ -175,6 +150,7 @@ public class MyPanel extends JPanel implements ActionListener {
             timer.stop();
         }
     }
+   
     public void gameOver(Graphics g){
         g.setColor(Color.RED);
         g.setFont(new Font("Ink Free", Font.BOLD, 30));
@@ -188,6 +164,7 @@ public class MyPanel extends JPanel implements ActionListener {
         g.drawString("Game Over", (SCREEN_WIDTH - metrics.stringWidth("Game Over"))/2, SCREEN_HEIGHT/2);
 
     }
+   
     @Override
     public void actionPerformed(ActionEvent e) {
         if(running){
@@ -198,6 +175,7 @@ public class MyPanel extends JPanel implements ActionListener {
         }
         repaint();
     }
+   
     public class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
