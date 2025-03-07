@@ -11,7 +11,7 @@ import javax.swing.Timer;
 public class MyPanel extends JPanel implements ActionListener {
    static final int SCREEN_WIDTH = 600;
    static final int SCREEN_HEIGHT = 600;
-   public static final int DELAY = 75;
+   public static int DELAY = 75;
    static final int UNIT_SIZE = 25;
    static final String BACKGROUND_COLOR = "#6A5ACD";
     static final String BODY_COLOR = "#B6ECB4";
@@ -129,6 +129,7 @@ public class MyPanel extends JPanel implements ActionListener {
         if((x[0] == foodX) && (y[0] == foodY)){
             bodyParts++;
             foodEaten++;
+            DELAY--;
             newFood();
         }
     }
